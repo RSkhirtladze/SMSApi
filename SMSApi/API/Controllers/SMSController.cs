@@ -10,30 +10,18 @@ namespace SMSApi.API.Controllers
     public class SMSController : ControllerBase
     {
         private readonly ISMSService _smsService;
-        private readonly ILogger<SMSController> _logger;
 
-        public SMSController(ISMSService smsService, ILogger<SMSController> logger)
+        public SMSController(ISMSService smsService)
         {
             _smsService = smsService;
-            _logger = logger;
         }
 
         [HttpPost("Send")]
         public async Task<IActionResult> Send(SMSMessageDTO smsMessageDTO)
         {
-            try
-            {
-                var result = await _smsService.SendSMSAsync(smsMessageDTO.Phone, smsMessageDTO.Text);
-                if (result)
-                {
-                    return Ok();
-                }
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-            catch()
-            {
+            await _smsService.SendSMSAsync(smsMessageDTO.Phone, smsMessageDTO.Text);
 
-            }
+            return Ok();
         }
     }
 }

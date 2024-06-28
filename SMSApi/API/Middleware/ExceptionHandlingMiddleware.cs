@@ -1,6 +1,7 @@
 ﻿using static SMSApi.Domain.Exceptions.Exceptions;
 using System.Net;
 using SMSApi.Domain.Exceptions;
+using Serilog;
 
 namespace SMSApi.API.Middleware
 {
@@ -37,6 +38,7 @@ namespace SMSApi.API.Middleware
                 MessageTooLongException => CustomStatusCodes.MESSAGE_TOO_LONG,
                 EmptyMessageException => CustomStatusCodes.EMPTY_MESSAGE,
                 MessageContainsProhibitedWordsException => CustomStatusCodes.MESSAGE_CONTAINS_PROHIBITED_WORDS,
+                SMSProviderException => CustomStatusCodes.SMS_PROVIDER_EXCPETION,
                 _ => (int)HttpStatusCode.InternalServerError,
             };
 
@@ -45,6 +47,8 @@ namespace SMSApi.API.Middleware
                 StatusCode = context.Response.StatusCode,
                 Message = ex.Message
             };
+
+            Log.Error(ex, "ExceptionHandlingMiddleware");
 
             return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
         }

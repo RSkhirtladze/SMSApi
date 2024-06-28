@@ -9,5 +9,7 @@
         public const int EMPTY_MESSAGE = 462;
 
         public const int MESSAGE_CONTAINS_PROHIBITED_WORDS = 463;
+
+        public const int SMS_PROVIDER_EXCPETION = 464;
     }
 }

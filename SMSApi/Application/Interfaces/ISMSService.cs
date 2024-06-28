@@ -2,6 +2,6 @@
 {
     public interface ISMSService
     {
-        Task<Boolean> SendSMSAsync(string phoneNumber, string text);
+        Task SendSMSAsync(string phoneNumber, string text);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using static SMSApi.Domain.Exceptions.Exceptions;
 
 namespace SMSApi.Domain.Models
 {
@@ -16,7 +17,7 @@ namespace SMSApi.Domain.Models
         {
             if (string.IsNullOrEmpty(phone.Number) || !Regex.IsMatch(phone.Number, @"^\+\d{1,3}\d{1,14}$"))
             {
-                throw new ArgumentException("Invalid phone number format");
+                throw new InvalidPhoneNumberException("Invalid phone number format");
             }
         }
     }

@@ -16,13 +16,13 @@ namespace SMSApi.Application.Services
             _smsDomainService = smsDomainService;
         }
 
-        public async Task<bool> SendSMSAsync(string phoneNumber, string text)
+        public async Task SendSMSAsync(string phoneNumber, string text)
         {
             var message = new SMSMessage(new Phone(phoneNumber), text);
             _smsDomainService.ProcessMessage(message);
 
             var provider = _providerSelector.SelectProvider();
-            return await provider.SendSMSAsync(message);
+            await provider.SendSMSAsync(message);
         }
     }
 }

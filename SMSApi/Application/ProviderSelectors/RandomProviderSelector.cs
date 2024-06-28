@@ -1,16 +1,23 @@
 ﻿using SMSApi.Application.Interfaces;
-using SMSApi.Domain.Models;
 using SMSApi.Infrastructure.Providers.Interfaces;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
 
 namespace SMSApi.App.SmsProviders
 {
     public class RandomProviderSelector : IProviderSelector
     {
+        private readonly List<ISMSProvider> _providers;
+        private readonly Random _random;
+
+        public RandomProviderSelector(IEnumerable<ISMSProvider> providers)
+        {
+            _providers = new List<ISMSProvider>(providers);
+            _random = Random.Shared;
+        }
+
         public ISMSProvider SelectProvider()
         {
-            throw new NotImplementedException();
+            int randomIndex = _random.Next(_providers.Count);
+            return _providers[randomIndex];
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Twilio.Types;
+using static SMSApi.Domain.Exceptions.Exceptions;
 
 namespace SMSApi.Domain.Models
 {
@@ -20,7 +21,7 @@ namespace SMSApi.Domain.Models
         {
             if (string.IsNullOrEmpty(smsMessage.Text))
             {
-                throw new ArgumentException("Text cannot be empty");
+                throw new EmptyMessageException("Text cannot be empty");
             }
             Phone.Validate(smsMessage.Phone);
         }
