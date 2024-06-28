@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SMSApi.DTOs
+namespace SMSApi.API.DTOs
 {
     public class SMSMessageDTO
     {
-        public string Phone  { get; set; }
+        [Required]
+        [Phone]
+        public string Phone { get; set; }
+        [Required]
         public string Text { get; set; }
     }
 }
